@@ -25,28 +25,36 @@ const LoginPopup = ({ setShowLogin }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/user/${
-          currentState === "login" ? "login" : "register"
-        }`,
-        data
-      );
-      dispatch({ type: ADD_TOKEN, payload: res.data.token });
-      localStorage.setItem("token", res.data.token);
-      toast.success(res.data.message);
-      setShowLogin(false);
-    } catch (error) {
-      if (
-        error &&
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        console.error(error.response.data.message);
-        toast.error(error.response.data.message);
+    if (
+      currentState === "login" &&
+      data.email === "admin@mail.co" &&
+      data.password === "admin"
+    ) {
+      window.location.href = "https://deloffoodadmin.netlify.app/add";
+    } else {
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/user/${
+            currentState === "login" ? "login" : "register"
+          }`,
+          data
+        );
+        dispatch({ type: ADD_TOKEN, payload: res.data.token });
+        localStorage.setItem("token", res.data.token);
+        toast.success(res.data.message);
+        setShowLogin(false);
+      } catch (error) {
+        if (
+          error &&
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          console.error(error.response.data.message);
+          toast.error(error.response.data.message);
+        }
+        console.error(error);
       }
-      console.error(error);
     }
   };
 
