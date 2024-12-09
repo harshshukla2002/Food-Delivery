@@ -1,0 +1,15 @@
+.not-found-container {
+  text-align: center;
+  margin: 100px;
+}
+
+.error-code {
+  color: #4c4c4c;
+  font-size: 60px;
+  font-weight: 700;
+}
+
+.error-text {
+  color: #4c4c4c;
+  font-size: 60px;
+}
